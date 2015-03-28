@@ -1,0 +1,68 @@
+<html>
+<head>
+<script type="text/javascript"
+  src="dygraph-combined.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+  var parms = window.location.search.substring(1);
+
+  if ( parms == "" )
+  {
+    document.write( "Electra laatste dagen" );
+  }
+  else
+  {
+    document.write( "Electra rond " + parms );
+  }
+
+  document.write( "<div id=\"graphdiv3\" style=\"width:800px; height:300px;\"></div>" );
+
+  g3 = new Dygraph(
+    document.getElementById("graphdiv3"),
+    "test.php?"+parms,
+    {
+  showRangeSelector: false
+    }
+  );
+
+</script>
+
+Electra en gas afgelopen jaar
+<div id="graphdiv4"
+  style="width:800px; height:300px;"></div>
+<p>
+<b>Toon: </b>
+<input type=checkbox id=0 onClick="serieschange(this)" checked>
+<label for="0">electra</label>
+<input type=checkbox id=1 onClick="serieschange(this)" checked>
+<label for="1">gas</label>
+<input type=checkbox id=2 onClick="serieschange(this)" checked>
+<label for="2">temp</label>
+</p>
+
+<script type="text/javascript">
+  g4 = new Dygraph(
+    document.getElementById("graphdiv4"),
+    "daily.php",
+    {
+        showRangeSelector: false,
+        series: {
+        "electra": { fillGraph: true},
+        "gas": { fillGraph: true, fillColor: 'red' },
+        "temp": { fillGraph: false, strokeWidth: 0.5,
+                drawGrid : false}
+        }
+    }
+  );
+
+  function serieschange(el) {
+    g4.setVisibility(el.id, el.checked);
+  }
+
+</script>
+
+</body>
+</html>
+
